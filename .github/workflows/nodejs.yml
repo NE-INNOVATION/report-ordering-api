@@ -37,7 +37,6 @@ jobs:
       - name: Build Image using Podman
         run: |
           podman build . -t ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
-          podman push ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
       - name: Push Image to Github Registry
         run: |
           podman push ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
