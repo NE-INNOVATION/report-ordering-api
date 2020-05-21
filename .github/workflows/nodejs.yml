@@ -29,8 +29,7 @@ jobs:
         run:  |
           podman login docker.pkg.github.com -u afu174 -p ${{ secrets.GITHUB_TOKEN }}
           
-      - name: use vars
+      - name: Build Image using Podman
         run: |
-          echo "Branch: ${{ steps.vars.outputs.branch }}"
-          echo "Sha: ${{ steps.vars.outputs.sha_short }}"
-          echo "Sha: ${{ steps.vars.outputs.repo }}"
+          podman build . -t docker.pkg.github.com/ne-innovation/report-ordering-api:${{ github.sha }}
+          podman push docker.pkg.github.com/ne-innovation/report-ordering-api/deploy:${{ github.sha }}
