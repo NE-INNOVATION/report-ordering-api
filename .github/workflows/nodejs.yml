@@ -20,6 +20,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Set variables
+        id: vars
+        run: |
+          echo ::set-output name=repo::$(echo ${GITHUB_REPOSITORY})
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo ::set-output name=image-name::$(echo docker.pkg.github.com/ne-innovation/report-ordering-api/report-ordering-${GITHUB_REPOSITORY}:${GITHUB_REF:10})
       #- name: npm install and npm run build
        # run: |
         #  npm i
@@ -28,8 +34,7 @@ jobs:
         id: login
         run:  |
           podman login docker.pkg.github.com -u afu174 -p ${{ secrets.GITHUB_TOKEN }}
-          
       - name: Build Image using Podman
         run: |
-          podman build . -t docker.pkg.github.com/ne-innovation/report-ordering-api/deploy:${{ github.sha }}
-          podman push docker.pkg.github.com/ne-innovation/report-ordering-api/deploy:${{ github.sha }}
+          podman build . -t docker.pkg.github.com/ne-innovation/report-ordering-api/${{ steps.vars.outputs.branch }}-report-ordering:${{ github.sha }}
+          podman push ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
