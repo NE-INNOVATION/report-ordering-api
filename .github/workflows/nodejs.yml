@@ -31,5 +31,5 @@ jobs:
           
       - name: Build Image using Podman
         run: |
-          podman build . -t docker.pkg.github.com/ne-innovation/report-ordering-api:${{ github.sha }}
+          podman build . -t docker.pkg.github.com/ne-innovation/report-ordering-api/deploy:${{ github.sha }}
           podman push docker.pkg.github.com/ne-innovation/report-ordering-api/deploy:${{ github.sha }}
