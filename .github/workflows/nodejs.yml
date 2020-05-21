@@ -42,6 +42,7 @@ jobs:
           podman push ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
       - name: Scan Image
         uses: Azure/container-scan@v0
+        continue-on-error: true
         with:
           image-name: ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
           username: afu174
