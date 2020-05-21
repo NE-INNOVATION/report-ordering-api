@@ -48,4 +48,4 @@ jobs:
           username: afu174
           password: ${{ github.token }}
           token: ${{ github.token }}
-          severity-threshold: CRITICAL
+          severity-threshold: HIGH
