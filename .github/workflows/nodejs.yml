@@ -25,7 +25,7 @@ jobs:
         run: |
           echo ::set-output name=repo::$(echo ${GITHUB_REPOSITORY})
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-          echo ::set-output name=image-name::$(echo docker.pkg.github.com/ne-innovation/report-ordering-api/report-ordering-${GITHUB_REPOSITORY})
+          echo ::set-output name=image-name::$(echo docker.pkg.github.com/ne-innovation/report-ordering-api/report-ordering-${GITHUB_REF#refs/heads/})
       #- name: npm install and npm run build
        # run: |
         #  npm i
@@ -38,3 +38,13 @@ jobs:
         run: |
           podman build . -t ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
           podman push ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
+      - name: Push Image to Github Registry
+        run: |
+          podman push ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
+      - name: Scan Image
+        uses: Azure/container-scan@v0
+        with:
+          image-name: ${{ steps.vars.outputs.image-name }}:${{ github.sha }}
+          username: afu174
+          password: ${{ github.token }}
+          token: ${{ github.token }}
