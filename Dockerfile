@@ -1,10 +1,5 @@
 FROM node:10
 
-# Add a new user "report-user" with user id 8877
-RUN useradd -u 8877 report-user
-# Change to non-root privilege
-USER report-user
-
 # Create app directory
 WORKDIR /usr/src/app
 
