@@ -9,46 +9,19 @@ var gen = rn.generator({
 , integer: true
 })
 
-router.route('/vehicleInfo/:id/:quoteId')
+router.route('/vehicle/:vin/:state')
   .get(async (req, res, next) => {
-    res.send(JSON.stringify(await getVehicleInfo(req.params.id, req.params.quoteId)))
-  })
-  .post(async (req, res, next) => {
-    res.send(JSON.stringify({result : await saveVehicleInfo(req.body, req.params.quoteId)}))
+    res.send(JSON.stringify(await getVehicleReport(req.params.vin, req.params.state)))
   })
 
-  let getVehicleInfo = async (id, quoteId) => {
-    console.log('Returning Vehicle #', id)
-    let vehicle = await dataStore.findVehicle(quoteId)
-    return vehicle
+  router.route('/ping') .get(async (req, res, next) => {
+    res.send("running...")
+  })
+ 
+  let getVehicleReport = async (vin, state) => {
+    console.log('Returning Vehicle report for vin #', vin)
+    let vehicleReport = await dataStore.findVehicle(vin,state)
+    return vehicleReport
   }
-  
-  let saveVehicleInfo = async (data, quoteId) => {
-    let vehicle = '';
-    if(data.id !== ''){
-      vehicle = await dataStore.findVehicle(quoteId);
-    }else{
-      vehicle = {};
-      vehicle.quoteId = quoteId
-    }
     
-    vehicle.year = data.year
-    vehicle.make = data.make
-    vehicle.model = data.model
-    vehicle.vehicleOwned = data.vehicleOwned
-    vehicle.vehicleUsage = data.vehicleUsage
-    vehicle.daysDriven = data.daysDriven
-    vehicle.milesDriven = data.milesDriven
-    vehicle.vehiclePrimaryUse = data.vehiclePrimaryUse
-    vehicle.annualMileage = data.annualMileage
-    
-    if(data.id === '') {
-      vehicle.id = gen().toString()
-    }
-    
-    dataStore.addVehicle(vehicle)
-
-    return vehicle.id
-  }
-
 module.exports = router;

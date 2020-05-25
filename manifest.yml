@@ -6,3 +6,5 @@ applications:
     CONNECTION_STRING: mongodb://lrqi_db:lrqi_db_pwd@lrqidb-shard-00-00-wksjy.mongodb.net:27017,lrqidb-shard-00-01-wksjy.mongodb.net:27017,lrqidb-shard-00-02-wksjy.mongodb.net:27017/test?ssl=true&replicaSet=LRQIDB-shard-0&authSource=admin&retryWrites=true
     DB_NAME: lrqi
     COLLECTION_NAME: col_lrqi_vehicles
+    COLLECTION_NAME_VEHICLE_REPORT: col_Irqui_vehicles_report
+    COLLECTION_NAME_MVR_REPORT: col_Irqi_mvr_report

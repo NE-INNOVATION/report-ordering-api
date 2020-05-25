@@ -1,5 +1,5 @@
 {
-  "name": "vehicles-api",
+  "name": "report-api",
   "version": "1.0.0",
   "description": "vehicles API to Get Put Vehicle data",
   "main": "index.js",
@@ -22,7 +22,7 @@
     "Drivers",
     "API"
   ],
-  "author": "Pratik",
+  "author": "ganesh",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.3"
