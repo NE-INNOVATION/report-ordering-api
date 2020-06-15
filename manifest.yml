@@ -8,3 +8,6 @@ applications:
     COLLECTION_NAME: col_lrqi_vehicles
     COLLECTION_NAME_VEHICLE_REPORT: col_Irqui_vehicles_report
     COLLECTION_NAME_MVR_REPORT: col_Irqi_mvr_report
+    ISSUER: https://dev-521711.okta.com/oauth2/default
+    CLIENT_ID: 0oadgcu962ydolarc4x6
+    AUTH_ENABLED: false
